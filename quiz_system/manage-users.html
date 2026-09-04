@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users - Admin Console</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Custom Style CSS -->
+    <link rel="stylesheet" href="frontend/assets/css/style.css">
+</head>
+<body>
+
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom navbar-light bg-white border-bottom py-3">
+        <div class="container">
+            <a class="navbar-brand fw-800 fs-22" href="admin-dashboard.html">
+                <i class="bi bi-shield-fill text-dark me-2"></i><span>Admin</span>System
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link fw-600 px-3 py-2 rounded" href="admin-dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fw-600 px-3 py-2 rounded" href="manage-users.html">Manage Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-600 px-3 py-2 rounded" href="manage-subjects.html">Manage Subjects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-600 px-3 py-2 rounded" href="manage-question-bank.html">Question Bank</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="user-info">
+                        <div class="user-avatar text-uppercase fw-800" style="background-color: var(--dark-navy); color: #fff; width: 36px; height: 36px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">A</div>
+                        <span class="user-name fw-700">Admin</span>
+                    </div>
+                    <button class="btn btn-outline-danger btn-sm logout-btn fw-600 px-3">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div class="container py-5">
+        
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-5">
+            <div>
+                <h1 class="fw-800 text-dark mb-1">User Account Administration</h1>
+                <p class="text-muted mb-0">Moderate user registration status, suspend accounts, or delete user directories.</p>
+            </div>
+        </div>
+
+        <!-- Filters Section -->
+        <div class="card p-4 bg-white border rounded-4 shadow-sm mb-5">
+            <div class="row g-3">
+                <!-- Search bar -->
+                <div class="col-md-5">
+                    <label for="search-users" class="form-label">Search Users</label>
+                    <div class="search-bar max-width-100" style="max-width: 100%;">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="text" id="search-users" class="form-control" placeholder="Search by name, email...">
+                    </div>
+                </div>
+
+                <!-- Role Filter -->
+                <div class="col-md-3">
+                    <label for="filter-role" class="form-label">Filter Role</label>
+                    <select class="form-select py-2" id="filter-role">
+                        <option value="all" selected>All Roles</option>
+                        <option value="teacher">Teachers Only</option>
+                        <option value="student">Students Only</option>
+                    </select>
+                </div>
+
+                <!-- Status Filter -->
+                <div class="col-md-4">
+                    <label for="filter-status" class="form-label">Filter Status</label>
+                    <select class="form-select py-2" id="filter-status">
+                        <option value="all" selected>All Statuses</option>
+                        <option value="active">Active Only</option>
+                        <option value="blocked">Blocked Only</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Teachers Section -->
+        <div class="mb-5" id="teachers-section">
+            <h3 class="fw-800 text-dark mb-3"><i class="bi bi-person-workspace text-primary me-2"></i>Teacher Directories</h3>
+            <div class="table-custom border">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Teacher Name</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Date Joined</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="teachers-tbody">
+                        <tr>
+                            <td colspan="5" class="text-center py-4 text-muted">
+                                <div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div> Loading...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Students Section -->
+        <div class="mb-5" id="students-section">
+            <h3 class="fw-800 text-dark mb-3"><i class="bi bi-mortarboard-fill text-success me-2"></i>Student Directories</h3>
+            <div class="table-custom border">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>University Email</th>
+                            <th>Status</th>
+                            <th>Date Joined</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="students-tbody">
+                        <tr>
+                            <td colspan="5" class="text-center py-4 text-muted">
+                                <div class="spinner-border spinner-border-sm text-success me-2" role="status"></div> Loading...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- App Scripts -->
+    <script src="frontend/assets/js/api.js"></script>
+    <script src="frontend/assets/js/validation.js"></script>
+    <script src="frontend/assets/js/main.js"></script>
+    <script src="frontend/assets/js/admin.js"></script>
+</body>
+</html>

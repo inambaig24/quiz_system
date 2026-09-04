@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Difficulty - Online Quiz System</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Custom Style CSS -->
+    <link rel="stylesheet" href="frontend/assets/css/style.css">
+</head>
+<body>
+
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom navbar-light bg-white border-bottom py-3">
+        <div class="container">
+            <a class="navbar-brand fw-800 fs-22" href="student-dashboard.html">
+                <i class="bi bi-mortarboard-fill text-success me-2"></i><span>Quiz</span>System
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link fw-600 px-3 py-2 rounded" href="student-dashboard.html">
+                            <i class="bi bi-house-door-fill me-1"></i>Dashboard
+                        </a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="user-info">
+                        <div class="user-avatar user-name-display text-uppercase" style="width: 36px; height: 36px; border-radius: 50%; font-weight: 700; display: flex; justify-content: center; align-items: center; background-color: var(--success); color: #fff;">S</div>
+                        <span class="user-name fw-700 user-name-display">Student</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div class="container py-5" style="max-width: 800px;">
+        <a href="subject-selection.html" class="back-link d-inline-flex align-items-center gap-1 mb-4 text-muted text-decoration-none fw-600">
+            <i class="bi bi-arrow-left"></i> Change Subject
+        </a>
+
+        <div class="card p-4 p-md-5 bg-white border rounded-4 shadow-sm">
+            <h2 class="fw-800 text-dark mb-1">Practice Quiz Parameters</h2>
+            <p class="text-muted mb-4">Subject: <span class="selected-subject-name fw-700 text-success">-</span></p>
+
+            <form id="difficulty-form" novalidate>
+                <!-- Difficulty selector grid cards -->
+                <div class="mb-4">
+                    <label class="form-label d-block mb-3">Select Difficulty</label>
+                    <div class="row g-3">
+                        <!-- Easy Card -->
+                        <div class="col-md-4">
+                            <input type="radio" class="btn-check" name="difficulty" id="diff-easy" value="Easy" checked autocomplete="off">
+                            <label class="card option-card h-100 py-4" for="diff-easy" style="cursor: pointer;">
+                                <div class="option-icon text-success"><i class="bi bi-emoji-smile"></i></div>
+                                <h4 class="fw-700 mt-2 mb-1">Easy</h4>
+                                <p class="text-muted fs-13">Basic concepts, definitions, and simple operations.</p>
+                            </label>
+                        </div>
+                        
+                        <!-- Medium Card -->
+                        <div class="col-md-4">
+                            <input type="radio" class="btn-check" name="difficulty" id="diff-medium" value="Medium" autocomplete="off">
+                            <label class="card option-card h-100 py-4" for="diff-medium" style="cursor: pointer;">
+                                <div class="option-icon text-warning"><i class="bi bi-emoji-neutral"></i></div>
+                                <h4 class="fw-700 mt-2 mb-1">Medium</h4>
+                                <p class="text-muted fs-13">Application problems, intermediate logic analysis.</p>
+                            </label>
+                        </div>
+
+                        <!-- Hard Card -->
+                        <div class="col-md-4">
+                            <input type="radio" class="btn-check" name="difficulty" id="diff-hard" value="Hard" autocomplete="off">
+                            <label class="card option-card h-100 py-4" for="diff-hard" style="cursor: pointer;">
+                                <div class="option-icon text-danger"><i class="bi bi-emoji-expressionless"></i></div>
+                                <h4 class="fw-700 mt-2 mb-1">Hard</h4>
+                                <p class="text-muted fs-13">Complex code tracing, advanced architecture designs.</p>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Number of questions dropdown -->
+                <div class="mb-4" style="max-width: 400px;">
+                    <label for="num-questions" class="form-label">Number of Questions</label>
+                    <select class="form-select py-3" id="num-questions" required>
+                        <option value="5" selected>5 Questions</option>
+                        <option value="10">10 Questions</option>
+                        <option value="15">15 Questions</option>
+                        <option value="20">20 Questions</option>
+                    </select>
+                </div>
+
+                <div class="border-top pt-4 d-flex justify-content-between align-items-center gap-3 flex-wrap">
+                    <a href="subject-selection.html" class="btn btn-outline-secondary px-4 fw-600">Cancel</a>
+                    <button type="submit" class="btn btn-success btn-lg rounded-pill px-5 fw-600">
+                        <i class="bi bi-play-fill me-1"></i>Start Practice Session
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- App Scripts -->
+    <script src="frontend/assets/js/api.js"></script>
+    <script src="frontend/assets/js/validation.js"></script>
+    <script src="frontend/assets/js/main.js"></script>
+    <script src="frontend/assets/js/student.js"></script>
+    <!-- Simple logic for option card style highlights on click -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const radioButtons = document.querySelectorAll('input[name="difficulty"]');
+            
+            // Initial toggle
+            updateLabels();
+
+            radioButtons.forEach(btn => {
+                btn.addEventListener('change', updateLabels);
+            });
+
+            function updateLabels() {
+                radioButtons.forEach(btn => {
+                    const label = document.querySelector(`label[for="${btn.id}"]`);
+                    if (btn.checked) {
+                        label.classList.add('selected');
+                    } else {
+                        label.classList.remove('selected');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

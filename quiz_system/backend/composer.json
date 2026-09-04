@@ -1,0 +1,13 @@
+{
+    "name": "quiz-system/backend",
+    "description": "Online Quiz System Backend Dependencies",
+    "require": {
+        "dompdf/dompdf": "^2.0",
+        "phpmailer/phpmailer": "^6.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "QuizSystem\\": "src/"
+        }
+    }
+}

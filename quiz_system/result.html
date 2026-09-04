@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Result - Online Quiz System</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Custom Style CSS -->
+    <link rel="stylesheet" href="frontend/assets/css/style.css">
+    <!-- Quiz Style CSS -->
+    <link rel="stylesheet" href="frontend/assets/css/quiz.css">
+</head>
+<body>
+
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom navbar-light bg-white border-bottom py-3">
+        <div class="container">
+            <a class="navbar-brand fw-800 fs-22" href="student-dashboard.html">
+                <i class="bi bi-mortarboard-fill text-success me-2"></i><span>Quiz</span>System
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link fw-600 px-3 py-2 rounded" href="student-dashboard.html">
+                            <i class="bi bi-house-door-fill me-1"></i>Dashboard
+                        </a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="user-info">
+                        <div class="user-avatar user-name-display text-uppercase" style="width: 36px; height: 36px; border-radius: 50%; font-weight: 700; display: flex; justify-content: center; align-items: center; background-color: var(--success); color: #fff;">S</div>
+                        <span class="user-name fw-700 user-name-display">Student</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div class="container py-5" style="max-width: 900px;">
+        
+        <!-- Result Status Banner (Injected dynamically) -->
+        <div class="card result-card border-2 text-center mb-4" id="result-status-banner">
+            <div class="card-body py-5">
+                <h1 class="fw-800" id="result-status-title">Evaluating results...</h1>
+                <p class="text-muted fs-16 mb-0" id="result-status-text">Please wait while your answers are graded.</p>
+            </div>
+        </div>
+
+        <!-- Scores Grid Details -->
+        <div class="row g-3 mb-5">
+            <!-- Score Card -->
+            <div class="col-md-4">
+                <div class="card p-4 bg-white border rounded-4 text-center h-100 shadow-sm">
+                    <span class="text-secondary fs-13 fw-600 text-uppercase letter-spacing-05">Final Score</span>
+                    <h2 class="fw-800 text-primary mt-2 mb-0" id="result-score" style="font-size: 36px;">0/0</h2>
+                </div>
+            </div>
+            
+            <!-- Percentage Card -->
+            <div class="col-md-4">
+                <div class="card p-4 bg-white border rounded-4 text-center h-100 shadow-sm">
+                    <span class="text-secondary fs-13 fw-600 text-uppercase letter-spacing-05">Percentage</span>
+                    <h2 class="fw-800 text-dark mt-2 mb-0" id="result-percentage" style="font-size: 36px;">0%</h2>
+                </div>
+            </div>
+
+            <!-- Leaderboard Rank Card (Teacher quizzes only) -->
+            <div class="col-md-4" id="result-leaderboard-box">
+                <div class="card p-4 bg-white border rounded-4 text-center h-100 shadow-sm">
+                    <span class="text-secondary fs-13 fw-600 text-uppercase letter-spacing-05">Leaderboard Rank</span>
+                    <h2 class="fw-800 text-warning mt-2 mb-0" id="result-leaderboard-pos" style="font-size: 36px;">#1</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Metadata Summary Box -->
+        <div class="card p-4 bg-white border rounded-4 shadow-sm mb-4">
+            <h4 class="fw-700 text-dark mb-3 border-bottom pb-2">Attempt Summary</h4>
+            <div class="row g-3">
+                <div class="col-sm-6">
+                    <div class="mb-2"><span class="text-secondary fw-600">Quiz Title:</span> <span id="result-quiz-title" class="fw-700">-</span></div>
+                    <div class="mb-2"><span class="text-secondary fw-600">Subject Name:</span> <span id="result-subject" class="fw-700">-</span></div>
+                    <div><span class="text-secondary fw-600">Submitted Time:</span> <span id="result-date" class="text-dark">-</span></div>
+                </div>
+                <div class="col-sm-6 border-start-md">
+                    <div class="mb-2">
+                        <span class="text-secondary fw-600">Correct Answers:</span> 
+                        <span class="badge bg-success rounded-pill px-3 py-1 font-monospace fw-700" id="result-correct">0</span>
+                    </div>
+                    <div>
+                        <span class="text-secondary fw-600">Wrong Answers:</span> 
+                        <span class="badge bg-danger rounded-pill px-3 py-1 font-monospace fw-700" id="result-wrong">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions Panel: PDF Download & Email attachment -->
+        <div class="card p-4 bg-white border rounded-4 shadow-sm mb-5 text-center">
+            <h5 class="fw-700 mb-3 text-dark">Export & Report Services</h5>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <!-- Return Dashboard -->
+                <a href="student-dashboard.html" class="btn btn-outline-secondary rounded-pill px-4 fw-600">
+                    <i class="bi bi-house-door-fill me-1"></i>Dashboard
+                </a>
+
+                <!-- Download PDF Report -->
+                <a id="download-pdf-btn" href="#" class="btn btn-primary rounded-pill px-4 fw-600">
+                    <i class="bi bi-file-earmark-pdf-fill me-1"></i>Download PDF Report
+                </a>
+
+                <!-- Email PDF Report -->
+                <button id="email-result-btn" class="btn btn-success rounded-pill px-4 fw-600">
+                    <i class="bi bi-envelope-fill me-1"></i>Email PDF Report
+                </button>
+            </div>
+        </div>
+
+        <!-- Detailed review list of questions -->
+        <div class="mb-4">
+            <h3 class="fw-800 text-dark mb-4">Detailed Question Review</h3>
+            <div id="detailed-answers-review">
+                <!-- Detailed reviews list injected by quiz.js -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- html2pdf for client-side PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <!-- App Scripts -->
+    <script src="frontend/assets/js/api.js"></script>
+    <script src="frontend/assets/js/validation.js"></script>
+    <script src="frontend/assets/js/main.js"></script>
+    <script src="frontend/assets/js/quiz.js"></script>
+</body>
+</html>
